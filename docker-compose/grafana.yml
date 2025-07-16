@@ -1,0 +1,16 @@
+version: '2.1'
+volumes:
+    grafana_data: {}
+services:
+  grafana:
+    image: grafana/grafana-enterprise
+    container_name: grafana
+    restart: always
+    volumes:
+      - grafana_data:/var/lib/grafana  # Mount the Grafana data directory
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    ports:
+      - '3000:3000'  # Expose Grafana on port 3000

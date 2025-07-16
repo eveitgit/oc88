@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 5s # Server 抓取頻率
+  external_labels:
+    monitor: "monitor-log"
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
