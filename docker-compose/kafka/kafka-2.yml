@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  kafka-2:
+    image: confluentinc/cp-kafka:7.6.1
+    container_name: kafka-2
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    volumes:
+      - /root/kafka/log:/tmp/kraft-combined-logs
+    environment:
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_NODE_ID: 2
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@10.170.0.26:9093,2@10.170.0.28:9093,3@10.170.0.31:9093'
+      KAFKA_LISTENERS: 'PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://10.170.0.28:9092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CLUSTER_ID: 'CVPntWk3Sem7KmjAzRshhg'
+      # --- Broker 參數設定 ---
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_LOG_CLEANUP_POLICY: 'delete'
+      KAFKA_NUM_PARTITIONS: 3                       # <-- 新增
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3           # <-- 新增
+      KAFKA_LOG_RETENTION_HOURS: 168                # <-- 新增
+
+volumes:
+  kafka-2-data:

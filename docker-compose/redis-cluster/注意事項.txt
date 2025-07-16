@@ -1,0 +1,1 @@
+redis-cluster.yml 中 --cluster-announce-ip 須改為自身主機的內部 IP , ex: 10.170.x.x
