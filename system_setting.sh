@@ -2,6 +2,10 @@
 
 apt update
 
+apt install docker.io python3-pip docker-compose -y 
+systemctl enable docker
+systemctl start docker
+
 #limits.conf
 cat <<EOF >> /etc/security/limits.conf
 root soft nofile 65535
